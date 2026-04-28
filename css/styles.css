@@ -487,13 +487,46 @@ html.lenis, html.lenis body {
 }
 
 /* Animations Base - Set initial states for GSAP */
-.fade-in-up { opacity: 0; }
-.split-reveal-text, .scrub-reveal-text { opacity: 1; }
+.fade-in-up { 
+    opacity: 0; 
+    will-change: transform, opacity; 
+}
+.split-reveal-text, .scrub-reveal-text { 
+    opacity: 1; 
+}
+.scrub-reveal-text .word {
+    will-change: opacity;
+}
+.split-reveal-text .word {
+    will-change: transform, opacity;
+}
+.img-reveal {
+    will-change: clip-path;
+}
+.img-reveal .project-img {
+    will-change: transform;
+}
+.card-reveal {
+    will-change: clip-path, transform, opacity;
+}
+#global-video {
+    will-change: opacity;
+}
 
 .text-center { text-align: center; }
 
 @media screen and (max-width: 768px) {
+    html, body {
+        overflow-x: hidden;
+        width: 100%;
+        max-width: 100vw;
+    }
     .links { display: none; }
+    
+    .hero-title {
+        font-size: clamp(2.5rem, 12vw, 4rem) !important;
+    }
+    
     .project-item, .project-item.reverse {
         flex-direction: column;
     }
@@ -507,6 +540,36 @@ html.lenis, html.lenis body {
     .section { padding: 10vh 0; }
     .long-scroll { padding: 15vh 0; }
     .padding-huge { padding: 20vh 0; }
+
+    /* Override inline styles to prevent horizontal scroll */
+    .profile-grid {
+        flex-direction: column !important;
+        gap: 2.5rem !important;
+        margin-top: 5vh !important;
+    }
+    
+    .profile-img-container {
+        flex: none !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr !important;
+        gap: 2.5rem !important;
+    }
+    
+    /* Social buttons fit on small screens */
+    #contact .fade-in-up[style*="display: flex"] {
+        gap: 1rem !important;
+        flex-wrap: wrap;
+    }
+    
+    .social-glass-btn {
+        width: 60px !important;
+        height: 60px !important;
+        border-radius: 18px !important;
+    }
 }
 
 /* Social Glass Buttons (Contact) */

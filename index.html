@@ -24,7 +24,7 @@
 
     <!-- Global Background Video Overlay -->
     <video id="global-video" autoplay loop muted playsinline
-        style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; object-fit: cover; z-index: 999; pointer-events: none; mix-blend-mode: screen; opacity: 0;">
+        style="position: fixed; top: 0; left: 0; width: 100%; height: 100vh; object-fit: cover; z-index: 999; pointer-events: none; mix-blend-mode: screen; opacity: 0;">
         <source src="vedio/upscaled-video (2).mp4" type="video/mp4">
     </video>
 
@@ -51,16 +51,46 @@
     <!-- Page Content -->
     <main>
 
+        <!-- New Intro Page -->
+        <style>
+            @keyframes cinematic-shine {
+                to {
+                    background-position: 200% center;
+                }
+            }
+
+            .cinematic-glass-text {
+                background: linear-gradient(110deg,
+                        #1d1d1f 0%,
+                        #6e6e73 25%,
+                        #c0c0c5 50%,
+                        #6e6e73 75%,
+                        #1d1d1f 100%);
+                background-size: 200% auto;
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                text-shadow: 0 15px 35px rgba(0, 0, 0, 0.15), 0 5px 15px rgba(0, 0, 0, 0.08);
+                animation: cinematic-shine 15s linear infinite;
+            }
+        </style>
+        <section id="intro-page"
+            style="position: relative; width: 100%; height: 100vh; background: rgba(245, 245, 247, 1); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); z-index: 20; overflow: hidden; will-change: background, backdrop-filter;">
+            <div id="intro-content"
+                style="display: flex; flex-direction: column; justify-content: center; align-items: center; width: 100%; height: 100%; will-change: transform, opacity;">
+                <h1 class="cinematic-glass-text"
+                    style="font-size: clamp(3.5rem, 10vw, 7rem); font-weight: 700; text-align: center; letter-spacing: -0.04em; margin: 0;">
+                    Hi, I’m Abhinav.</h1>
+                <p
+                    style="position: absolute; bottom: 8vh; font-size: clamp(0.9rem, 2.5vw, 1.2rem); font-weight: 600; color: #1d1d1f; letter-spacing: 0.15em; text-transform: uppercase; margin: 0;">
+                    Design • Analyze • Optimize</p>
+            </div>
+        </section>
+
         <!-- Scroll-based Hero Sequence -->
         <section id="hero-scroll" class="hero dark-section">
             <div class="sticky-container">
                 <canvas id="hero-canvas"></canvas>
                 <div class="hero-text-overlay">
-                    <div id="intro-static-text" class="hero-static-left">
-                        <h2 class="hero-title">Design</h2>
-                        <h2 class="hero-title">Analyze</h2>
-                        <h2 class="hero-title">Optimize</h2>
-                    </div>
                     <h1 class="hero-title" id="text-1">Mechanical.</h1>
                     <h1 class="hero-title" id="text-2">Engineering.</h1>
                     <h1 class="hero-title" id="text-3">Redefined.</h1>
@@ -77,7 +107,7 @@
                     <!-- Glassy Image Container -->
                     <div class="profile-img-container img-reveal">
                         <div class="glass-frame">
-                            <img src="profile pic/WhatsApp Image 2026-04-28 at 4.16.43 PM.jpeg" alt="Abhinav Profile"
+                            <img src="profile-pic/WhatsApp Image 2026-04-28 at 4.16.43 PM.jpeg" alt="Abhinav Profile"
                                 class="project-img">
                         </div>
                     </div>
@@ -123,7 +153,7 @@
                     <!-- Slideshow Block (Right) -->
                     <div class="profile-img-container img-reveal">
                         <div class="glass-frame">
-                            <img id="racing-slideshow" src="racing pic/WhatsApp Image 2026-04-20 at 8.51.54 PM.jpeg"
+                            <img id="racing-slideshow" src="racing-pic/WhatsApp Image 2026-04-20 at 8.51.54 PM.jpeg"
                                 alt="ARC Racing Showcase" class="project-img">
                         </div>
                     </div>
@@ -162,13 +192,49 @@
                                 addressing a real-world health problem through an affordable and scalable solution. It
                                 strengthened my understanding of sensor-based systems, user-centric design, and
                                 interdisciplinary engineering approaches.</p>
+
+                            <style>
+                                .project-link-btn {
+                                    display: inline-flex;
+                                    align-items: center;
+                                    gap: 10px;
+                                    text-decoration: none;
+                                    color: #f5f5f7;
+                                    padding: 12px 24px;
+                                    border-radius: 30px;
+                                    background: rgba(255, 255, 255, 0.08);
+                                    border: 1px solid rgba(255, 255, 255, 0.15);
+                                    transition: all 0.3s ease;
+                                    font-weight: 500;
+                                    font-size: 0.95rem;
+                                    backdrop-filter: blur(10px);
+                                    -webkit-backdrop-filter: blur(10px);
+                                }
+
+                                .project-link-btn:hover {
+                                    background: rgba(255, 255, 255, 0.15);
+                                    transform: translateY(-3px);
+                                }
+                            </style>
+                            <div class="mt-3">
+                                <a href="https://team-11idealab.github.io/projectsl1/" target="_blank"
+                                    class="project-link-btn">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                        <polyline points="15 3 21 3 21 9"></polyline>
+                                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                                    </svg>
+                                    Visit Project Site
+                                </a>
+                            </div>
                         </div>
                     </div>
 
                     <!-- Slideshow Block (Right) -->
                     <div class="profile-img-container img-reveal" style="flex: 0 0 400px;">
                         <div class="glass-frame">
-                            <img id="posture-slideshow" src="posture pic/WhatsApp Image 2026-04-18 at 11.31.05 PM.jpeg"
+                            <img id="posture-slideshow" src="posture-pic/WhatsApp Image 2026-04-18 at 11.31.05 PM.jpeg"
                                 alt="Posture Correction Device Showcase" class="project-img">
                         </div>
                     </div>
@@ -256,7 +322,7 @@
                     <!-- Slideshow Block (Right) -->
                     <div class="profile-img-container img-reveal" style="flex: 0 0 400px;">
                         <div class="glass-frame">
-                            <img id="thermal-slideshow" src="httm image/Screenshot 2026-04-28 173330.png"
+                            <img id="thermal-slideshow" src="httm-image/Screenshot 2026-04-28 173330.png"
                                 alt="Thermal Analysis Showcase" class="project-img"
                                 style="aspect-ratio: auto; object-fit: contain; background: transparent;">
                         </div>

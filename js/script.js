@@ -2,18 +2,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 1. Initialize Lenis Smooth Scroll (Ultra Buttery Apple-Style)
     const lenis = new Lenis({
-        lerp: 0.05, // Lower value = higher inertia, more "buttery" flow
+        lerp: 0.08, // Optimized for smooth but responsive feel
         smoothWheel: true,
-        wheelMultiplier: 0.9, // Slightly softer mouse wheel curve
+        wheelMultiplier: 1, // Native feeling
         smoothTouch: true, 
         touchMultiplier: 2, // Keeps touch responsive but smooth
     });
-
-    function raf(time) {
-        lenis.raf(time);
-        requestAnimationFrame(raf);
-    }
-    requestAnimationFrame(raf);
 
     // 2. Register GSAP Plugins
     if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
@@ -21,10 +15,46 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Sync Lenis with GSAP ScrollTrigger
         lenis.on('scroll', ScrollTrigger.update);
+        
+        // Let GSAP drive Lenis's requestAnimationFrame for better performance
+        // (Removing the duplicate native requestAnimationFrame loop)
         gsap.ticker.add((time) => {
             lenis.raf(time * 1000);
         });
         gsap.ticker.lagSmoothing(0, 0);
+
+        // =====================================
+        // INTRO PAGE GLASSY TRANSITION
+        // =====================================
+        const introPage = document.getElementById("intro-page");
+        if(introPage) {
+            gsap.to(introPage, {
+                scrollTrigger: {
+                    trigger: introPage,
+                    start: "top top",
+                    end: "+=100%", 
+                    pin: true,
+                    pinSpacing: false, // Allows hero section to scroll underneath
+                    scrub: true
+                },
+                background: "rgba(245, 245, 247, 0)", // Fade out white background
+                backdropFilter: "blur(0px)", // Remove blur smoothly
+                ease: "power2.inOut"
+            });
+            
+            gsap.to("#intro-content", {
+                scrollTrigger: {
+                    trigger: introPage,
+                    start: "top top",
+                    end: "+=20%", // Text fades out very quickly (after ~1 scroll)
+                    scrub: true
+                },
+                opacity: 0,
+                scale: 1.05,
+                y: -30,
+                ease: "power2.out"
+            });
+        }
 
         // =====================================
         // HERO CANVAS IMAGE SEQUENCE & TEXT
@@ -91,8 +121,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
 
-            // 0) Intro text fades out as soon as scroll begins
-            tlText.to("#intro-static-text", {opacity: 0, duration: 1})
+            // 0) Delay text to allow intro glass to fade out
+            tlText.to({}, {duration: 0.8})
             // 1) Text 1 appears then goes up
                   .to("#text-1", {opacity: 1, yPercent: -50, duration: 1})
                   .to("#text-1", {opacity: 0, yPercent: -100, duration: 1})
@@ -256,112 +286,72 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // =====================================
-        // ANIMATION LOGIC F: Experience Automatic Slideshow
+        // OPTIMIZED SLIDESHOW LOGIC
+        // Only run intervals when elements are in viewport
         // =====================================
-        const racingSlideshow = document.getElementById('racing-slideshow');
-        if (racingSlideshow) {
-            const racingImages = [
-                "racing pic/WhatsApp Image 2026-04-20 at 8.51.54 PM.jpeg",
-                "racing pic/WhatsApp Image 2026-04-20 at 8.54.03 PM.jpeg",
-                "racing pic/WhatsApp Image 2026-04-20 at 9.01.00 PM.jpeg",
-                "racing pic/WhatsApp Image 2026-04-20 at 9.02.53 PM.jpeg",
-                "racing pic/WhatsApp Image 2026-04-20 at 9.03.44 PM.jpeg"
-            ];
-            let currentRacingIndex = 0;
+        function createSlideshow(imgElement, images, intervalTime) {
+            if (!imgElement) return;
+            let currentIndex = 0;
+            let timer;
 
-            setInterval(() => {
-                gsap.to(racingSlideshow, {
-                    opacity: 0.2, 
-                    duration: 0.5, 
-                    ease: "power2.inOut",
-                    onComplete: () => {
-                        currentRacingIndex = (currentRacingIndex + 1) % racingImages.length;
-                        racingSlideshow.src = racingImages[currentRacingIndex];
-                        gsap.to(racingSlideshow, { opacity: 1, duration: 0.5, ease: "power2.inOut" });
-                    }
-                });
-            }, 3000);
+            ScrollTrigger.create({
+                trigger: imgElement,
+                start: "top bottom",
+                end: "bottom top",
+                onEnter: start,
+                onEnterBack: start,
+                onLeave: stop,
+                onLeaveBack: stop
+            });
+
+            function start() {
+                if (timer) return; // Prevent multiple intervals
+                timer = setInterval(() => {
+                    gsap.to(imgElement, {
+                        opacity: 0.2, 
+                        duration: 0.5, 
+                        ease: "power2.inOut",
+                        onComplete: () => {
+                            currentIndex = (currentIndex + 1) % images.length;
+                            imgElement.src = images[currentIndex];
+                            gsap.to(imgElement, { opacity: 1, duration: 0.5, ease: "power2.inOut" });
+                        }
+                    });
+                }, intervalTime);
+            }
+
+            function stop() {
+                if (timer) {
+                    clearInterval(timer);
+                    timer = null;
+                }
+            }
         }
 
-        // =====================================
-        // ANIMATION LOGIC G: Posture Device Slideshow
-        // Crossfades posture images every 5 seconds
-        // =====================================
-        const postureSlideshow = document.getElementById('posture-slideshow');
-        if (postureSlideshow) {
-            const postureImages = [
-                "posture pic/WhatsApp Image 2026-04-18 at 11.31.05 PM.jpeg",
-                "posture pic/WhatsApp Image 2026-04-18 at 11.32.04 PM.jpeg"
-            ];
-            let currentPostureIndex = 0;
+        createSlideshow(document.getElementById('racing-slideshow'), [
+            "racing-pic/WhatsApp Image 2026-04-20 at 8.51.54 PM.jpeg",
+            "racing-pic/WhatsApp Image 2026-04-20 at 8.54.03 PM.jpeg",
+            "racing-pic/WhatsApp Image 2026-04-20 at 9.01.00 PM.jpeg",
+            "racing-pic/WhatsApp Image 2026-04-20 at 9.02.53 PM.jpeg",
+            "racing-pic/WhatsApp Image 2026-04-20 at 9.03.44 PM.jpeg"
+        ], 3000);
 
-            setInterval(() => {
-                gsap.to(postureSlideshow, {
-                    opacity: 0.2, 
-                    duration: 0.5, 
-                    ease: "power2.inOut",
-                    onComplete: () => {
-                        currentPostureIndex = (currentPostureIndex + 1) % postureImages.length;
-                        postureSlideshow.src = postureImages[currentPostureIndex];
-                        gsap.to(postureSlideshow, { opacity: 1, duration: 0.5, ease: "power2.inOut" });
-                    }
-                });
-            }, 5000);
-        }
+        createSlideshow(document.getElementById('posture-slideshow'), [
+            "posture-pic/WhatsApp Image 2026-04-18 at 11.31.05 PM.jpeg",
+            "posture-pic/WhatsApp Image 2026-04-18 at 11.32.04 PM.jpeg"
+        ], 5000);
 
-        // =====================================
-        // ANIMATION LOGIC H: Materials Optimization Slideshow
-        // Crossfades material images every 5 seconds
-        // =====================================
-        const materialsSlideshow = document.getElementById('materials-slideshow');
-        if (materialsSlideshow) {
-            const materialsImages = [
-                "materials/WhatsApp Image 2026-04-19 at 12.14.48 AM.jpeg",
-                "materials/WhatsApp Imagea 2026-04-19 at 12.14.48 AM.jpeg"
-            ];
-            let currentMaterialsIndex = 0;
+        createSlideshow(document.getElementById('materials-slideshow'), [
+            "materials/WhatsApp Image 2026-04-19 at 12.14.48 AM.jpeg",
+            "materials/WhatsApp Imagea 2026-04-19 at 12.14.48 AM.jpeg"
+        ], 5000);
 
-            setInterval(() => {
-                gsap.to(materialsSlideshow, {
-                    opacity: 0.2, 
-                    duration: 0.5, 
-                    ease: "power2.inOut",
-                    onComplete: () => {
-                        currentMaterialsIndex = (currentMaterialsIndex + 1) % materialsImages.length;
-                        materialsSlideshow.src = materialsImages[currentMaterialsIndex];
-                        gsap.to(materialsSlideshow, { opacity: 1, duration: 0.5, ease: "power2.inOut" });
-                    }
-                });
-            }, 5000);
-        }
-
-        // =====================================
-        // ANIMATION LOGIC I: Thermal Slideshow
-        // Crossfades thermal images every 5 seconds
-        // =====================================
-        const thermalSlideshow = document.getElementById('thermal-slideshow');
-        if (thermalSlideshow) {
-            const thermalImages = [
-                "httm image/Screenshot 2026-04-28 173330.png",
-                "httm image/Screenshot 2026-04-28 173349.png",
-                "httm image/Screenshot 2026-04-28 173417.png",
-                "httm image/image.png"
-            ];
-            let currentThermalIndex = 0;
-
-            setInterval(() => {
-                gsap.to(thermalSlideshow, {
-                    opacity: 0.2, 
-                    duration: 0.5, 
-                    ease: "power2.inOut",
-                    onComplete: () => {
-                        currentThermalIndex = (currentThermalIndex + 1) % thermalImages.length;
-                        thermalSlideshow.src = thermalImages[currentThermalIndex];
-                        gsap.to(thermalSlideshow, { opacity: 1, duration: 0.5, ease: "power2.inOut" });
-                    }
-                });
-            }, 3000);
-        }
+        createSlideshow(document.getElementById('thermal-slideshow'), [
+            "httm-image/Screenshot 2026-04-28 173330.png",
+            "httm-image/Screenshot 2026-04-28 173349.png",
+            "httm-image/Screenshot 2026-04-28 173417.png",
+            "httm-image/image.png"
+        ], 3000);
 
         // =====================================
         // ANIMATION LOGIC K: Navigation Indicator (Smooth Sliding Slab)
