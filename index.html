@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abhinav - Mechanical Engineer</title>
+
+    <!-- Apple-style typography (Inter mimics San Francisco well) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+
+    <!-- Animation & Scroll Libraries -->
+    <!-- Lenis: Smooth Scrolling -->
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.34/dist/lenis.min.js"></script>
+    <!-- GSAP Core & ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <!-- SplitType: For text splitting Apple-style -->
+    <script src="https://unpkg.com/split-type"></script>
+</head>
+
+<body>
+
+    <!-- Global Background Video Overlay -->
+    <video id="global-video" autoplay loop muted playsinline
+        style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; object-fit: cover; z-index: 999; pointer-events: none; mix-blend-mode: screen; opacity: 0;">
+        <source src="vedio/upscaled-video (2).mp4" type="video/mp4">
+    </video>
+
+    <!-- Minimalist Sticky Nav -->
+    <nav class="apple-nav">
+        <div class="nav-content">
+            <a href="#" class="logo">ABHINAV K</a>
+            <div class="links">
+                <div class="nav-indicator"></div>
+                <a href="#profile">Profile</a>
+                <a href="#experience">Experience</a>
+                <a href="#projects">Projects</a>
+                <a href="#education">Education</a>
+                <a href="#volunteering">Volunteering</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <!-- Hamburger for Mobile -->
+            <div class="menu-icon">
+                <span></span><span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Content -->
+    <main>
+
+        <!-- Scroll-based Hero Sequence -->
+        <section id="hero-scroll" class="hero dark-section">
+            <div class="sticky-container">
+                <canvas id="hero-canvas"></canvas>
+                <div class="hero-text-overlay">
+                    <div id="intro-static-text" class="hero-static-left">
+                        <h2 class="hero-title">Design</h2>
+                        <h2 class="hero-title">Analyze</h2>
+                        <h2 class="hero-title">Optimize</h2>
+                    </div>
+                    <h1 class="hero-title" id="text-1">Mechanical.</h1>
+                    <h1 class="hero-title" id="text-2">Engineering.</h1>
+                    <h1 class="hero-title" id="text-3">Redefined.</h1>
+                </div>
+            </div>
+        </section>
+
+        <!-- Profile Section -->
+        <section id="profile" class="section dark-section long-scroll">
+            <div class="container container-medium profile-layout">
+                <h2 class="section-label fade-in-up">Profile</h2>
+
+                <div class="profile-grid">
+                    <!-- Glassy Image Container -->
+                    <div class="profile-img-container img-reveal">
+                        <div class="glass-frame">
+                            <img src="profile pic/WhatsApp Image 2026-04-28 at 4.16.43 PM.jpeg" alt="Abhinav Profile"
+                                class="project-img">
+                        </div>
+                    </div>
+
+                    <!-- Scrub Reveal Text -->
+                    <h3 class="scrub-reveal-text large-copy">
+                        Mechanical Engineering undergraduate at TKM College of Engineering with a strong interest in
+                        design, manufacturing, and analysis. Skilled in CAD modeling, CFD simulation, and mechanical
+                        testing through academic projects and technical competitions. Active member of engineering
+                        societies and design member of the ARC Go-Kart Team, seeking internship opportunities to apply
+                        engineering knowledge to real-world problems.
+                    </h3>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section id="experience" class="section light-section long-scroll">
+            <div class="container container-medium profile-layout">
+                <h2 class="section-label fade-in-up">Experience</h2>
+
+                <div class="profile-grid">
+                    <!-- Text Block (Left) -->
+                    <div class="timeline" style="flex: 1;">
+                        <div class="fade-in-up">
+                            <h4 class="heading-md">ARC RACING TKMCE</h4>
+                            <div class="sub-label" style="font-weight: bold; color: var(--text-black);">Chassis Head
+                                (2025-26)</div>
+                            <p class="copy-lg mt-2">I joined the ARC Go-Kart Team at TKM College of Engineering as the
+                                Chassis Head, where I took responsibility for designing and developing the vehicle’s
+                                chassis for our first-ever participation in a national-level EV competition. I worked on
+                                modeling the chassis and motor mount using SolidWorks, followed by hands-on fabrication
+                                including welding, grinding, and assembly.</p>
+                            <p class="copy-lg mt-2">Alongside the technical work, I coordinated the chassis team,
+                                managed tasks, and ensured smooth execution throughout the build process. We
+                                participated in the Go Kart Design Challenge EV Category held at Coimbatore Speedway,
+                                and securing an All India Rank of 19 in our debut attempt made the experience even more
+                                rewarding. It was a challenging yet memorable journey that strengthened both my
+                                technical skills and leadership abilities.</p>
+                        </div>
+                    </div>
+
+                    <!-- Slideshow Block (Right) -->
+                    <div class="profile-img-container img-reveal">
+                        <div class="glass-frame">
+                            <img id="racing-slideshow" src="racing pic/WhatsApp Image 2026-04-20 at 8.51.54 PM.jpeg"
+                                alt="ARC Racing Showcase" class="project-img">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="section dark-section" style="padding: 10vh 0;">
+            <div class="container profile-layout" style="max-width: 1200px;">
+                <h2 class="section-label fade-in-up">Projects</h2>
+
+                <div class="profile-grid" style="justify-content: space-between; gap: 40px;">
+                    <!-- Text Block (Left) -->
+                    <div class="project-info" style="flex: 1;">
+                        <div class="fade-in-up">
+                            <h3
+                                style="font-size: clamp(1.5rem, 2.5vw, 2.2rem); font-weight: 700; margin-bottom: 1rem; line-height: 1.2; background: linear-gradient(180deg, #fff 0%, #a1a1a6 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                                Arduino-Based Posture Correction<br>Device Using MPU6050
+                            </h3>
+                            <p class="copy-md mt-2" style="font-size: 1rem; line-height: 1.6;">As part of an IDEA Lab
+                                project at TKM College of Engineering, I worked on developing a smart posture-correcting
+                                wearable system aimed at addressing the growing issue of poor posture caused by
+                                prolonged sitting and device usage. The project focused on designing a compact and
+                                user-friendly belt integrated with an Arduino-based system and an MPU6050 motion sensor
+                                to continuously monitor spinal alignment in real time.</p>
+                            <p class="copy-md mt-2" style="font-size: 1rem; line-height: 1.6;">The system was designed
+                                to detect deviations from a calibrated neutral posture and trigger a vibration alert
+                                only when incorrect posture was sustained beyond a threshold duration, ensuring accuracy
+                                while avoiding false alarms. I was actively involved in system integration, circuit
+                                design, and implementation, including working with components such as sensors,
+                                microcontrollers, and feedback mechanisms. The entire setup was embedded into a wearable
+                                belt to ensure comfort, portability, and practical usability in everyday scenarios.</p>
+                            <p class="copy-md mt-2" style="font-size: 1rem; line-height: 1.6;">This project provided
+                                hands-on experience in combining mechanical design with embedded systems, while also
+                                addressing a real-world health problem through an affordable and scalable solution. It
+                                strengthened my understanding of sensor-based systems, user-centric design, and
+                                interdisciplinary engineering approaches.</p>
+                        </div>
+                    </div>
+
+                    <!-- Slideshow Block (Right) -->
+                    <div class="profile-img-container img-reveal" style="flex: 0 0 400px;">
+                        <div class="glass-frame">
+                            <img id="posture-slideshow" src="posture pic/WhatsApp Image 2026-04-18 at 11.31.05 PM.jpeg"
+                                alt="Posture Correction Device Showcase" class="project-img">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Second Project Block -->
+                <div class="profile-grid"
+                    style="justify-content: space-between; gap: 40px; margin-top: 15vh; flex-direction: row-reverse;">
+                    <!-- Text Block (Right) -->
+                    <div class="project-info" style="flex: 1;">
+                        <div class="fade-in-up">
+                            <h3
+                                style="font-size: clamp(1.5rem, 2.5vw, 2.2rem); font-weight: 700; margin-bottom: 0.5rem; line-height: 1.2; background: linear-gradient(180deg, #fff 0%, #a1a1a6 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                                Material Optimization for<br>Coconut Husk Peeler
+                            </h3>
+                            <div class="sub-label"
+                                style="font-weight: bold; color: var(--text-grey); margin-bottom: 1rem;">Replacing Mild
+                                Steel with SS316 for Improved Strength & Durability</div>
+                            <p class="copy-md mt-2" style="font-size: 1rem; line-height: 1.6;">As part of a materials
+                                engineering project at TKM College of Engineering, I worked on evaluating and improving
+                                the performance of coconut husk peeler equipment by replacing conventional Mild Steel
+                                components with Stainless Steel (SS316). The project addressed a real-world issue where
+                                Mild Steel components frequently fail due to bending, wear, and corrosion under
+                                continuous mechanical loading and humid operating conditions.</p>
+                            <p class="copy-md mt-2" style="font-size: 1rem; line-height: 1.6;">To analyze this, we
+                                conducted a comparative experimental study between Mild Steel and SS316, focusing on
+                                mechanical properties and environmental resistance. I was involved in material analysis
+                                and testing processes including microstructure examination, hardness testing, tensile
+                                testing using a Universal Testing Machine (UTM), and corrosion testing through saltwater
+                                exposure. The results showed that SS316 exhibited higher hardness (~86.6 BHN vs ~69.2
+                                BHN), improved yield strength, and significantly better resistance to corrosion, with
+                                over 100 times lower corrosion rate compared to Mild Steel.</p>
+                            <p class="copy-md mt-2" style="font-size: 1rem; line-height: 1.6;">Through this study, we
+                                demonstrated that replacing Mild Steel with SS316 can effectively reduce deformation,
+                                minimize maintenance, and extend the operational lifespan of the equipment. This project
+                                enhanced my understanding of material selection, failure analysis, and the practical
+                                application of mechanical properties in real-world industrial systems.</p>
+                        </div>
+                    </div>
+
+                    <!-- Slideshow Block (Left) -->
+                    <div class="profile-img-container img-reveal" style="flex: 0 0 400px;">
+                        <div class="glass-frame">
+                            <img id="materials-slideshow" src="materials/WhatsApp Image 2026-04-19 at 12.14.48 AM.jpeg"
+                                alt="Material Optimization Showcase" class="project-img">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Third Project Block -->
+                <div class="profile-grid" style="justify-content: space-between; gap: 40px; margin-top: 15vh;">
+                    <!-- Text Block (Left) -->
+                    <div class="project-info" style="flex: 1;">
+                        <div class="fade-in-up">
+                            <h3
+                                style="font-size: clamp(1.5rem, 2.5vw, 2.2rem); font-weight: 700; margin-bottom: 1rem; line-height: 1.2; background: linear-gradient(180deg, #fff 0%, #a1a1a6 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                                CFD & Thermal Analysis of<br>Aerospike and Bell Nozzles
+                            </h3>
+                            <p class="copy-md mt-2" style="font-size: 1rem; line-height: 1.6;">As part of a thermal
+                                engineering project at TKM College of Engineering, I conducted a comparative analysis of
+                                Aerospike and Bell nozzles to evaluate their aerodynamic performance, thermal behavior,
+                                and structural response under identical operating conditions. The study aimed to
+                                understand how nozzle geometry influences flow expansion, thrust efficiency, and heat
+                                distribution in rocket propulsion systems.</p>
+                            <p class="copy-md mt-2" style="font-size: 1rem; line-height: 1.6;">Both nozzles were
+                                designed using SolidWorks and analyzed using ANSYS Fluent, with boundary conditions
+                                including a chamber pressure of ~6.14 MPa, temperature of ~3006 K, and medium-altitude
+                                exit pressure. The CFD results provided detailed insights into Mach number, velocity,
+                                pressure, and temperature distributions, showing supersonic flow acceleration (up to
+                                Mach ~3.2 in the Bell nozzle) and efficient plume expansion in the Aerospike
+                                configuration.</p>
+                            <p class="copy-md mt-2" style="font-size: 1rem; line-height: 1.6;">Thermal and structural
+                                analysis using ANSYS revealed that while the Aerospike nozzle offers superior altitude
+                                compensation and aerodynamic efficiency, it experiences higher thermal loads and strain,
+                                particularly along the spike region. The study also identified critical cooling zones,
+                                emphasizing the need for regenerative cooling systems, especially at the throat and
+                                inner walls of the Bell nozzle and the spike region of the Aerospike nozzle.</p>
+                            <p class="copy-md mt-2" style="font-size: 1rem; line-height: 1.6;">This project enhanced my
+                                understanding of CFD, heat transfer, and simulation-driven design, while highlighting
+                                the trade-offs between performance efficiency and thermal management in aerospace
+                                systems.</p>
+                        </div>
+                    </div>
+
+                    <!-- Slideshow Block (Right) -->
+                    <div class="profile-img-container img-reveal" style="flex: 0 0 400px;">
+                        <div class="glass-frame">
+                            <img id="thermal-slideshow" src="httm image/Screenshot 2026-04-28 173330.png"
+                                alt="Thermal Analysis Showcase" class="project-img"
+                                style="aspect-ratio: auto; object-fit: contain; background: transparent;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Education Section -->
+        <section id="education" class="section dark-section padding-huge">
+            <div class="container container-narrow">
+                <h2 class="section-label fade-in-up">Education</h2>
+
+                <h3 class="scrub-reveal-text large-copy" style="margin-bottom: 3rem;">
+                    Pursuing my Bachelor of Technology in Mechanical Engineering at TKM College of Engineering.
+                </h3>
+
+                <div class="stats-grid mt-4" style="grid-template-columns: repeat(3, 1fr); align-items: center;">
+                    <div class="stat-item fade-in-up">
+                        <span class="stat-number">4th</span>
+                        <span class="stat-label">Semester Ongoing</span>
+                    </div>
+                    <div class="stat-item fade-in-up delay-1">
+                        <span class="stat-number" style="font-size: 3.5rem;">B.Tech</span>
+                        <span class="stat-label">Undergraduate</span>
+                    </div>
+
+                    <!-- College Link Anchor -->
+                    <div class="stat-item fade-in-up delay-1">
+                        <a href="https://tkmce.ac.in/" target="_blank"
+                            style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-decoration: none; color: var(--text-white); padding: 25px; border-radius: 20px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); transition: all 0.3s ease; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                                style="margin-bottom: 15px;">
+                                <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                                <path d="M2 17l10 5 10-5"></path>
+                                <path d="M2 12l10 5 10-5"></path>
+                            </svg>
+                            <span class="stat-label"
+                                style="display:block; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 0.05em; color: #fff;">Visit
+                                TKMCE</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Volunteering Section -->
+        <section id="volunteering" class="section light-section" style="padding: 12vh 0;">
+            <div class="container container-medium">
+                <h2 class="section-label fade-in-up">Volunteering</h2>
+
+                <div class="grid-2-col mt-4" style="gap: 2.5rem;">
+
+                    <!-- Card 1: HESTIA -->
+                    <div class="card fade-in-up card-reveal"
+                        style="background: rgba(255,255,255,0.55); border: 1px solid rgba(0,0,0,0.08); border-radius: 24px; padding: 2.5rem; backdrop-filter: blur(30px) saturate(1.6); -webkit-backdrop-filter: blur(30px) saturate(1.6);">
+                        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
+                            <div
+                                style="width: 50px; height: 50px; border-radius: 14px; background: linear-gradient(135deg, #6e8efb, #a777e3); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polygon
+                                        points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+                                    </polygon>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 style="font-size: 1.2rem; font-weight: 700; color: #1d1d1f; margin: 0;">HESTIA Tech
+                                    Fest</h4>
+                                <span
+                                    style="font-size: 0.82rem; color: #6e6e73; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 500;">Volunteer</span>
+                            </div>
+                        </div>
+                        <p style="font-size: 0.97rem; line-height: 1.75; color: #3a3a3c; margin-bottom: 0.8rem;">
+                            Contributed as a volunteer at HESTIA, one of the largest technical festivals in Kerala.
+                            Assisted in design support, technical setup, and on-ground event coordination.</p>
+                        <p style="font-size: 0.97rem; line-height: 1.75; color: #3a3a3c;">Managed responsibilities in a
+                            high-energy environment, ensuring efficient execution of multiple activities across the
+                            festival.</p>
+                    </div>
+
+                    <!-- Card 2: ISRO TKMCE -->
+                    <div class="card fade-in-up delay-1 card-reveal"
+                        style="background: rgba(255,255,255,0.55); border: 1px solid rgba(0,0,0,0.08); border-radius: 24px; padding: 2.5rem; backdrop-filter: blur(30px) saturate(1.6); -webkit-backdrop-filter: blur(30px) saturate(1.6);">
+                        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
+                            <div
+                                style="width: 50px; height: 50px; border-radius: 14px; background: linear-gradient(135deg, #f7971e, #ffd200); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1a1a1a"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <line x1="2" y1="12" x2="22" y2="12"></line>
+                                    <path
+                                        d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z">
+                                    </path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 style="font-size: 1.2rem; font-weight: 700; color: #1d1d1f; margin: 0;">ISRO TKMCE
+                                    Center of Excellence</h4>
+                                <span
+                                    style="font-size: 0.82rem; color: #6e6e73; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 500;">Junior
+                                    Executive Committee Member</span>
+                            </div>
+                        </div>
+                        <p style="font-size: 0.97rem; line-height: 1.75; color: #3a3a3c; margin-bottom: 0.8rem;">
+                            Contributed to organizing and supporting technical initiatives under the ISRO-affiliated
+                            Center of Excellence at TKM College of Engineering. Assisted in coordinating student
+                            activities, workshops, and technical discussions related to space and engineering domains.
+                        </p>
+                        <p style="font-size: 0.97rem; line-height: 1.75; color: #3a3a3c;">Gained exposure to structured
+                            teamwork and professional technical environments within an ISRO-recognized institution.</p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="section dark-section padding-huge pb-end">
+            <div class="container container-narrow text-center">
+                <h2 class="section-label fade-in-up">Contact</h2>
+                <h3 class="heading-lg split-reveal-text">Let's Connect.</h3>
+                <p class="copy-lg mt-3 fade-in-up text-grey">Open to opportunities — internships, collaborations, and
+                    real-world engineering challenges. If you think we can build something great together, reach out.
+                </p>
+
+                <!-- Social Links Row -->
+                <div class="fade-in-up"
+                    style="display: flex; align-items: center; justify-content: center; gap: 2rem; margin-top: 4rem;">
+
+                    <!-- Gmail -->
+                    <a href="mailto:abhinavka007k@gmail.com" title="Send Email"
+                        style="display: flex; flex-direction: column; align-items: center; gap: 0.8rem; text-decoration: none;">
+                        <div class="social-glass-btn">
+                            <img src="gmail/download.png" alt="Gmail"
+                                style="width: 36px; height: 36px; object-fit: contain;">
+                        </div>
+                        <span
+                            style="font-size: 0.78rem; color: #86868b; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 500;">Email</span>
+                    </a>
+
+                    <!-- LinkedIn -->
+                    <a href="https://www.linkedin.com/in/abhinav-kunnaruvath" target="_blank" title="LinkedIn Profile"
+                        style="display: flex; flex-direction: column; align-items: center; gap: 0.8rem; text-decoration: none;">
+                        <div class="social-glass-btn">
+                            <img src="linkedin/download (1).png" alt="LinkedIn"
+                                style="width: 36px; height: 36px; object-fit: contain;">
+                        </div>
+                        <span
+                            style="font-size: 0.78rem; color: #86868b; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 500;">LinkedIn</span>
+                    </a>
+
+                    <!-- Instagram -->
+                    <a href="https://www.instagram.com/a.bh.i.na.v_?igsh=MXdjczFhNDh4bWFjcw==" target="_blank"
+                        title="Instagram Profile"
+                        style="display: flex; flex-direction: column; align-items: center; gap: 0.8rem; text-decoration: none;">
+                        <div class="social-glass-btn">
+                            <img src="instagram/download (2).jpg" alt="Instagram"
+                                style="width: 36px; height: 36px; object-fit: contain; border-radius: 8px;">
+                        </div>
+                        <span
+                            style="font-size: 0.78rem; color: #86868b; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 500;">Instagram</span>
+                    </a>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="apple-footer dark-section">
+        <div class="container">
+            <div class="footer-line"></div>
+            <p>Copyright © 2026 Abhinav. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+
+</html>
