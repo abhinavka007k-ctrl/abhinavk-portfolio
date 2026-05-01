@@ -238,8 +238,11 @@ html.lenis, html.lenis body {
     position: sticky;
     top: 0;
     height: 100vh;
-    width: 100vw;
+    width: 100%;  /* Changed from 100vw to prevent mobile horizontal scroll */
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 #hero-canvas {
@@ -569,6 +572,28 @@ html.lenis, html.lenis body {
         width: 60px !important;
         height: 60px !important;
         border-radius: 18px !important;
+    }
+
+    /* Hero section: canvas fills full screen, centered */
+    #hero-canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100% !important;
+        height: 100% !important;
+    }
+
+    /* Hero text overlay: push text to lower portion so it doesn't clash with image */
+    .hero-text-overlay {
+        align-items: center;
+        justify-content: flex-end;
+        padding-bottom: 8vh;
+    }
+
+    #text-1, #text-2, #text-3 {
+        bottom: 5%;
+        font-size: clamp(2rem, 10vw, 3.5rem) !important;
+        white-space: nowrap;
     }
 }
 
