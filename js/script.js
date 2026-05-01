@@ -82,15 +82,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 context.clearRect(0, 0, canvas.width, canvas.height);
                 const img = images[imageSeq.frame];
                 if (!img || !img.complete) return;
-                
+
+                const isMobile = window.innerWidth <= 768;
                 const hRatio = canvas.width / img.width;
                 const vRatio = canvas.height / img.height;
-                const ratio  = Math.max(hRatio, vRatio); // use max for cover, min for contain
-                const centerShift_x = (canvas.width - img.width*ratio) / 2;
-                const centerShift_y = (canvas.height - img.height*ratio) / 2;  
-                
+                // Desktop: cover (fill entire canvas). Mobile: contain (show entire image horizontally)
+                const ratio = isMobile ? Math.min(hRatio, vRatio) : Math.max(hRatio, vRatio);
+                const centerShift_x = (canvas.width - img.width * ratio) / 2;
+                const centerShift_y = (canvas.height - img.height * ratio) / 2;
+
+                // Fill background black for letterbox areas on mobile
+                context.fillStyle = '#000';
+                context.fillRect(0, 0, canvas.width, canvas.height);
+
                 context.drawImage(img, 0, 0, img.width, img.height,
-                                centerShift_x, centerShift_y, img.width*ratio, img.height*ratio);
+                                centerShift_x, centerShift_y, img.width * ratio, img.height * ratio);
             }
 
             window.addEventListener('resize', () => {

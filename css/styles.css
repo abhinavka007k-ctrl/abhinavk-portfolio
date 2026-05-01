@@ -595,3 +595,11 @@ html.lenis, html.lenis body {
     border-color: rgba(255, 255, 255, 0.22);
 }
 
+/* Mobile: contact section video fits entirely within screen width */
+@media screen and (max-width: 768px) {
+    #global-video {
+        object-fit: contain !important;
+        background: #000; /* Fill letterbox bars black */
+    }
+}
+
