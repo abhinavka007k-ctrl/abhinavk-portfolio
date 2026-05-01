@@ -552,7 +552,17 @@ html.lenis, html.lenis body {
         height: 100% !important;
     }
 
-    /* Text sits centered horizontally at the BOTTOM of the viewport, below the image */
+    /* Hero text-2 & text-3 are black on desktop (for light canvas frames)
+       but must be white on mobile where the background is dark/letterboxed */
+    #text-2, #text-3 {
+        color: #f5f5f7 !important;
+        -webkit-text-fill-color: #f5f5f7 !important;
+        background: linear-gradient(180deg, #fff 0%, #a1a1a6 100%) !important;
+        -webkit-background-clip: text !important;
+        -webkit-text-fill-color: transparent !important;
+    }
+
+    /* Hero text sits at bottom, below the letterboxed image */
     #text-1, #text-2, #text-3 {
         bottom: 6% !important;
         left: 50% !important;
